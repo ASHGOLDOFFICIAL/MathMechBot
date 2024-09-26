@@ -20,7 +20,8 @@ public class DiscordBot extends ListenerAdapter implements Bot {
     private final String botToken;
     private JDA jda;
 
-    /** Конструктор
+    /**
+     * Конструктор
      * @param token токен Discord бота
      * @param core логическое ядро, обрабатывающее сообщения
      */
@@ -47,15 +48,15 @@ public class DiscordBot extends ListenerAdapter implements Bot {
         System.out.println("Discord bot successfully started!");
     }
 
-    /**
-     *
-     * Для бота сообщение в текстовом канале НА СЕРВЕРЕ используется TextChannel
-     * а для использования в ЛИЧНОМ СООБЩЕНИИ используется PrivateChannel
-     * (я до конца не разобрался почему именно сейчас это работает только так,
-     * так как до этого мы использовали только TextChannel и все работало корректно и там и там)
-     */
+
     @Override
     public void sendMessage(Message message, Long id) {
+        /*
+         * Для бота сообщение в текстовом канале НА СЕРВЕРЕ используется TextChannel
+         * а для использования в ЛИЧНОМ СООБЩЕНИИ используется PrivateChannel
+         * (я до конца не разобрался почему именно сейчас это работает только так,
+         * так как до этого мы использовали только TextChannel и все работало корректно и там и там)
+         */
         final TextChannel textChannel = jda.getTextChannelById(id);
         System.out.println(id);
         if (textChannel != null) {
@@ -68,7 +69,8 @@ public class DiscordBot extends ListenerAdapter implements Bot {
         }
     }
 
-    /** Создаёт объекты класса Message из дискордоских MessageReceivedEvent
+    /**
+     * Создаёт объекты класса Message из дискордоских MessageReceivedEvent
      * @param event ивент сообщения
      * @return то же сообщение в формате Message для общения с ядром
      */
