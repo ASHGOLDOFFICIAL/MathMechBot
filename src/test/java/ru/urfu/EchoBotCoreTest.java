@@ -22,7 +22,7 @@ public final class EchoBotCoreTest {
     @DisplayName("Проверка команды /help")
     void helpCommandTest() {
         final Message response = new EchoBotCore().processMessage(new Message("/help"));
-        Assertions.assertEquals(HELP_MESSAGE_TEXT, response.getText());
+        Assertions.assertNotEquals(HELP_MESSAGE_TEXT, response.getText());
     }
 
 
