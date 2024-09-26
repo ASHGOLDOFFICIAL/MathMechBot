@@ -50,7 +50,7 @@ jobs:
           cache: 'maven'
 
       - name: Run tests
-        run: mvn -B test
+        run: mvn -q test
 
 
   # Checks code's styles
@@ -71,4 +71,4 @@ jobs:
 
       # Run mvn checkstyle:check (checks code style)
       - name: Check code style
-        run: mvn -B checkstyle:check
+        run: mvn -q checkstyle:check
