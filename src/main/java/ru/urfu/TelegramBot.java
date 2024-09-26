@@ -1,7 +1,5 @@
 package ru.urfu;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.telegram.telegrambots.client.okhttp.OkHttpTelegramClient;
 import org.telegram.telegrambots.longpolling.TelegramBotsLongPollingApplication;
 import org.telegram.telegrambots.longpolling.util.LongPollingSingleThreadUpdateConsumer;
@@ -16,7 +14,6 @@ import org.telegram.telegrambots.meta.generics.TelegramClient;
  * в зависимости от переданного ему при создании логического ядра (logicCore)
  */
 public class TelegramBot implements LongPollingSingleThreadUpdateConsumer, Bot {
-    private static final Logger LOGGER = LoggerFactory.getLogger(TelegramBot.class);
     private final TelegramClient telegramClient;
     private final LogicCore logicCore;
     private final String botToken;
@@ -30,21 +27,21 @@ public class TelegramBot implements LongPollingSingleThreadUpdateConsumer, Bot {
     }
 
     @Override
-    public void start(){
+    public void start() {
         new Thread(() -> {
             try {
                 botsApplication.registerBot(botToken, this);
-                LOGGER.info("Telegram bot successfully started!");
+                System.out.println("Telegram bot successfully started!");
 
                 Thread.currentThread().join();
             } catch (Exception e) {
-                LOGGER.error("Bot didn't get registered and didn't run.", e);
+                e.printStackTrace();
             }
         }).start();
     }
 
     @Override
-    public void sendMessage(Message msg, Long id){
+    public void sendMessage(Message msg, Long id) {
         try {
             telegramClient.execute(createFromMessage(msg, id));
         } catch (TelegramApiException e) {
@@ -72,8 +69,8 @@ public class TelegramBot implements LongPollingSingleThreadUpdateConsumer, Bot {
      * @return объект нашего универсального сообщения
      */
     private Message createFromTelegramMessage(org.telegram.telegrambots.meta.api.objects.message.Message message) {
-        String message_text = message.getText();
-        return new Message(message_text);
+        String messageText = message.getText();
+        return new Message(messageText);
     }
 
     @Override
